@@ -36,7 +36,7 @@ function convert($srcIn) {
             }
             imagewebp($image, $webpSrc);
         }
-        if (file_exists($webpSrc) and (filectime($webpSrc) > filectime($src))) {
+        if (file_exists($webpSrc)) {
             // make sure the file really exists
             return '/' . $webpSrc;
         }
