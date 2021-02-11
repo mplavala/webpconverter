@@ -11,7 +11,6 @@ function serve_node($node, $atribute) {
 
 function convert($srcIn) {
     $src = urldecode($srcIn);
-    $src = ltrim($src, '/');
 
     if (in_array(@mime_content_type($src), MIME)) {
         $srcArray = explode('.', $src);
@@ -39,7 +38,7 @@ function convert($srcIn) {
         if (file_exists($webpSrc) && filesize($webpSrc) > 0 ) {
             // make sure the file really exists 
             // and is not a damaged file
-            return '/' . $webpSrc;
+            return $webpSrc;
         }
     }
     
