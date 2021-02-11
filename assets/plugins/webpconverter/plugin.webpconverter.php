@@ -36,8 +36,9 @@ function convert($srcIn) {
             }
             imagewebp($image, $webpSrc);
         }
-        if (file_exists($webpSrc)) {
-            // make sure the file really exists
+        if (file_exists($webpSrc) && filesize($webpSrc) > 0 ) {
+            // make sure the file really exists 
+            // and is not a damaged file
             return '/' . $webpSrc;
         }
     }
