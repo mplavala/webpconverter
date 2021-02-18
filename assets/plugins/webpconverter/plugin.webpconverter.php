@@ -9,6 +9,26 @@ function serve_node($node, $atribute) {
     $node->setAttribute($atribute, convert($src));
 }
 
+function get_webp_filename($fileName) {
+    $fileNameArray = explode('.', $fileName);
+    $fileNameArray[count($fileNameArray) - 1] = 'webp';
+    return implode('.', $fileNameArray);
+}
+
+function get_webp_path($path) {
+	$pathArray = explode('/', $path);
+	// look for assets folder in array
+	$index = array_search('assets', $pathArray);
+	if (($index === false) or !is_int($index)) {
+		// non-standard scenario, just add .webp to the begining
+		array_unshift($pathArray, '.webp');
+	} else {
+		// standard scenario, add .webp after assets
+		array_splice($pathArray, $index+1, 0, '.webp');
+	}
+	return implode('/', $pathArray);
+}
+
 function convert($srcIn) {
     $src = urldecode($srcIn);
 
@@ -21,15 +41,14 @@ function convert($srcIn) {
 	}
 
     if (in_array($srcMime, MIME)) {
-    	// create new file name - change extension
-        $srcArray = explode('.', $src);
-        $srcArray[count($srcArray) - 1] = 'webp';
-        $webpSrc = implode('.', $srcArray);
-    	// create new file name - add .webp folder
-    	// TODO this only works for URLs not begining with /, this has to be fixed!
-        $webpSrcArray = explode('/', $webpSrc);
-        array_splice($webpSrcArray, 1, 0, '.webp');
-        $webpSrc = implode('/', $webpSrcArray);
+    	$fileName = pathinfo($src)['basename'];
+    	$path = pathinfo($src)['dirname'];
+    	// create new file name and path
+		$webpFileName = get_webp_filename($fileName);
+		$webpPath = get_webp_path($path);
+		
+        $webpSrc = $webpPath . '/' . $webpFileName;
+
         if (!file_exists($webpSrc) or (filectime($webpSrc) < filectime($src))) {
             // image does not exist or is outdated
             if ($srcMime == 'image/jpeg') {
@@ -42,11 +61,9 @@ function convert($srcIn) {
 				imagealphablending($image, true);
 				imagesavealpha($image, true);
             }
-            array_pop($webpSrcArray);
-            $webpSrcDir = implode('/', $webpSrcArray);
-            if (!file_exists($webpSrcDir)) {
+            if (!file_exists($webpPath)) {
                 // folder does not exist
-                mkdir($webpSrcDir, 0755, true);
+                mkdir($webpPath, 0755, true);
             }
             // create webp image
             imagewebp($image, $webpSrc);
@@ -64,3 +81,4 @@ function convert($srcIn) {
     // returning original input
     return $srcIn;
 }
+
