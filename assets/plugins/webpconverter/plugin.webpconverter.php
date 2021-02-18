@@ -13,9 +13,7 @@ function serve_node($node, $atribute) {
 }
 
 function get_webp_filename($fileName) {
-    $fileNameArray = explode('.', $fileName);
-    $fileNameArray[count($fileNameArray) - 1] = 'webp';
-    return implode('.', $fileNameArray);
+    return $fileName . '.webp';
 }
 
 function get_webp_path($path) {
