@@ -5,8 +5,11 @@ namespace webpconverter;
 define('MIME', ['image/jpeg', 'image/png']);
 
 function serve_node($node, $atribute) {
-    $src = $node->getAttribute($atribute);
-    $node->setAttribute($atribute, convert($src));
+	if ($node->getAttribute($atribute)) {
+		// the attribute exists, we can handle it
+	    $src = $node->getAttribute($atribute);
+	    $node->setAttribute($atribute, convert($src));
+    }
 }
 
 function get_webp_filename($fileName) {

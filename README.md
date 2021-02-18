@@ -3,7 +3,7 @@ WebP Converter
 
 Evolution CMS plugin and snippet to convert all images on the page to webp format.
 
-The plugin work out of the box and converts all jpeg and png images to the WebP format. The plugin looks for images in `<img src="...">` and `<video poster="...">`.
+The plugin work out of the box and converts all jpeg and png images to the WebP format. The plugin looks for images in `<img src="...">`, `<video poster="...">`, and `<source srcset="...">`.
 
 The converted images are saved in assets/.webp folder to be used again. The plugin checks if the image is not outdated, but removing the cache every now and then is recomended.
 

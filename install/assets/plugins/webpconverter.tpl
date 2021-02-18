@@ -29,15 +29,24 @@ switch ($e->name) {
 			$dom = new DOMDocument();
 			$internalErrors = libxml_use_internal_errors(true);
 			$dom->loadHTML(mb_convert_encoding($o, 'HTML-ENTITIES', 'UTF-8'));
+			// standard image
 			foreach ($dom->getElementsByTagName('img') as $node) {
 				webpconverter\serve_node($node, 'src');
 			}
-			
+			// video poster
 			foreach ($dom->getElementsByTagName('video') as $node) {
 				webpconverter\serve_node($node, 'poster');
 			}
+			// srcset inside picture
+			foreach ($dom->getElementsByTagName('source') as $node) {
+				webpconverter\serve_node($node, 'srcset');
+			}
 			
-			$o = html_entity_decode($dom->saveHTML());
+			$html = $dom->saveHTML();
+			
+			if ($html !== false) {
+				$o = html_entity_decode($html);
+			}
 		}
 		break;
 	default :
