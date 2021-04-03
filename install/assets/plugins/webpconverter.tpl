@@ -24,8 +24,9 @@ switch ($e->name) {
 			break;
 		}
 		$o = &$modx->documentOutput; // get a reference of the output
-		if (strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false) {
+		if ((strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false) and webpconverter\basic_checks()) {
 			// webp is supported!
+			// and we have all the needed functions
 			$dom = new DOMDocument();
 			$internalErrors = libxml_use_internal_errors(true);
 			$dom->loadHTML(mb_convert_encoding($o, 'HTML-ENTITIES', 'UTF-8'));
