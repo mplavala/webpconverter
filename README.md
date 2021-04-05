@@ -21,7 +21,7 @@ Simply use:
 ```
 [!webpBackground? &src='/path/to/image' !]
 ```
-Note that the plugin has to be uncached, i.e. you have to use `[! ... !]` and NOT `[[ ... ]]`.
+Note that the plugin has to be uncached, i.e., you have to use `[! ... !]` and NOT `[[ ... ]]`.
 
 Image paths and cache folder
 ----------------------------
