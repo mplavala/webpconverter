@@ -100,11 +100,11 @@ function convert($srcIn) {
     }
 
     if (in_array($srcMime, MIME)) {
-        $fileName = pathinfo($src)['basename'];
+        $filename = pathinfo($src)['basename'];
         $path = pathinfo($src)['dirname'];
 
         // create new file name and path
-        $webpFileName = get_webp_filename($fileName);
+        $webpFileName = get_webp_filename($filename);
         $webpPath = get_webp_path($path);
         // webp absolute path for src
         $webpSrc = $webpPath . '/' . $webpFileName;
