@@ -17,8 +17,9 @@ require_once(MODX_BASE_PATH . 'assets/plugins/webpconverter/plugin.webpconverter
 
 $src = (isset($src)) ? $src : '';
 
-if( strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false ) {
+if((strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false) and webpconverter\basic_checks()) {
 	// webp is supported!
+	// and we have all the needed functions
 	echo webpconverter\convert($src);
 } else {
 	echo $src;
