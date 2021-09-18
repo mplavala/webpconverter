@@ -34,3 +34,7 @@ If you have _Use Friendly URL alias path_ set to _yes_, i.e., if your URL is str
 *   Please consider using image paths starting with `/`. Using image paths without the starting `/` in this scenario is a bad idea.
 *   The plugin will use `$_SERVER['REQUEST_URI']` to get the full path and work with that.
 *   This can lead to collisions, i.e., to WebP images overwriting each other as images located at `/assets/parent/image.jpg` and `/parent/image.jpg` would have the same path for the WebP image.
+
+# Support
+
+For feedback/questions/use cases/bug reports please use [this forum thread](https://forum.evo.im/d/111-webp-converter-plugin-to-convert-images-to-webp) at the official Evolution CMS forum.
