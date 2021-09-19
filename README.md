@@ -14,6 +14,16 @@ There are two components: plugin that takes care of standard images and a snippe
 ### Plugin
 The plugin WebP Converter works out of the box. Just install it and you are good to go.
 
+#### Excluding images
+
+Images can be excluded from converting to WebP simply by adding `data-webpconverter-exclude="on"`, i.e.,
+
+```html
+<img src="assets/images/image.png" data-webpconverter-exclude="on">
+```
+
+will not be handled by the plugin.
+
 ### Snippet
 The snippet webpBackground is to be used if you set background image via `style="background-image: url(...)"`, or in other similar situations.
 
@@ -35,6 +45,10 @@ If you have _Use Friendly URL alias path_ set to _yes_, i.e., if your URL is str
 *   The plugin will use `$_SERVER['REQUEST_URI']` to get the full path and work with that.
 *   This can lead to collisions, i.e., to WebP images overwriting each other as images located at `/assets/parent/image.jpg` and `/parent/image.jpg` would have the same path for the WebP image.
 
-# Support
+## Debugging
+
+Both the plugin and snippet include configuration option to turn on debugging. If debugging is turned on, then reasons why images were not converted to WebP are logged as *System Events*.
+
+## Support
 
 For feedback/questions/use cases/bug reports please use [this forum thread](https://forum.evo.im/d/111-webp-converter-plugin-to-convert-images-to-webp) at the official Evolution CMS forum.

@@ -39,6 +39,12 @@ function check_cache_folder() {
 
 
 function serve_node($node, $atribute, $modx, $debug) {
+    if ($node->getAttribute('data-webpconverter-exclude') == 1 ||
+        $node->getAttribute('data-webpconverter-exclude') == 'on' ||
+        $node->getAttribute('data-webpconverter-exclude') == 'yes') {
+        // the attribure data-webpconverter-exclude exists and turned on
+        return;
+    }
     if ($node->getAttribute($atribute)) {
         // the attribute exists, we can handle it
         $src = $node->getAttribute($atribute);
