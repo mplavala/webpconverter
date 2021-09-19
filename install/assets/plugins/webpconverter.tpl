@@ -8,7 +8,7 @@
  * @version 	1.0
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU Public License (GPL)
  * @author      mplavala
- * @internal	@properties
+ * @internal	@properties &debug=Log debugging messages;list;No,Yes;No
  * @internal	@events OnWebPagePrerender
  * @internal	@modx_category Content
  * @internal    @installset base
@@ -23,24 +23,25 @@ switch ($e->name) {
 			// not HTML output
 			break;
 		}
-		$o = &$modx->documentOutput; // get a reference of the output
-		if ((strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false) and webpconverter\basic_checks()) {
+		if ((strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false) and webpconverter\basic_checks($modx)) {
 			// webp is supported!
 			// and we have all the needed functions
+			$o = &$modx->documentOutput; // get a reference of the output
 			$dom = new DOMDocument();
 			$internalErrors = libxml_use_internal_errors(true);
 			$dom->loadHTML(mb_convert_encoding($o, 'HTML-ENTITIES', 'UTF-8'));
+			
 			// standard image
 			foreach ($dom->getElementsByTagName('img') as $node) {
-				webpconverter\serve_node($node, 'src');
+				webpconverter\serve_node($node, 'src', $modx, $debug);
 			}
 			// video poster
 			foreach ($dom->getElementsByTagName('video') as $node) {
-				webpconverter\serve_node($node, 'poster');
+				webpconverter\serve_node($node, 'poster', $modx, $debug);
 			}
 			// srcset inside picture
 			foreach ($dom->getElementsByTagName('source') as $node) {
-				webpconverter\serve_node($node, 'srcset');
+				webpconverter\serve_node($node, 'srcset', $modx, $debug);
 			}
 			
 			$html = $dom->saveHTML();
