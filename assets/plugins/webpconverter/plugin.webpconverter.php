@@ -166,7 +166,16 @@ function convert($srcIn, $modx, $debug) {
     }
     if (file_exists($webpServerFile) && filesize($webpServerFile) > 0 ) {
         // make sure the file really exists and that is not a damaged file (size greater than 0)
-        return $webpSrc;
+        if (filesize($webpServerFile) < filesize($srcServerFile)) {
+            // the WebP image is smaller
+            return $webpSrc;
+        } else {
+            // the original image is smaller
+            if ($debug) {
+                $modx->logEvent(1, 2, 'Image ' . $srcIn . ' was supposed to be replaced by ' . $webpServerFile . ', but the WebP version is larger than original.', 'WebP Converter - WebP image larger than original');
+            }
+            return $srcIn;
+        }
     }
 
     // file creation failed or file doesn't exist
