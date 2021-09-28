@@ -112,9 +112,13 @@ function convert($srcIn, $modx, $debug) {
 
     if (file_exists($srcServerFile)) {
         // we set the MIME type as variable to test whether it is supported
-        // if file_exists evaulates to false, then $srcMime is empty, hence not valid MIME type
-        // if MIME type is not valid, then we return the original path later
+        // if file_exists evaulates to false, then we return original input
         $srcMime = mime_content_type($srcServerFile);
+    } else {
+        if ($debug) {
+            $modx->logEvent(1, 2, 'Image ' . $srcIn . ' does not exist. Either there is no file at ' . $srcServerFile . ', or the path is not accessible.', 'WebP Converter - image does not exist');
+            }
+        return $srcIn;
     }
 
     if (!in_array($srcMime, MIME)) {
@@ -122,13 +126,14 @@ function convert($srcIn, $modx, $debug) {
         // returning original input
         if ($debug) {
             if ($srcMime == '') {
-                $modx->logEvent(1, 2, 'Image does not exist. Image ' . $srcIn . ' either does not exist, or is not accessible, or MIME type was not correctly detected.', 'WebP Converter - image does not exist');
+                $modx->logEvent(1, 2, 'The MIME type of image ' . $srcIn . ' cannot be correctly detected.', 'WebP Converter - MIME type cannot be detected');
             } else {
                 $modx->logEvent(1, 2, 'Unsuported MIME type. Image ' . $srcIn . ' has MIME type ' . $srcMime . '. Only ' . implode(', ', MIME) . ' are supported.', 'WebP Converter - unsupported MIME type');
             }
         }
         return $srcIn;
-        }
+    }
+
     $filename = pathinfo($src)['basename'];
     $path = pathinfo($src)['dirname'];
 
@@ -165,7 +170,7 @@ function convert($srcIn, $modx, $debug) {
         imagedestroy($image);
     }
     if (file_exists($webpServerFile) && filesize($webpServerFile) > 0 ) {
-        // make sure the file really exists and that is not a damaged file (size greater than 0)
+        // make sure the file really exists and that it is not a damaged
         if (filesize($webpServerFile) < filesize($srcServerFile)) {
             // the WebP image is smaller
             return $webpSrc;
