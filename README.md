@@ -9,7 +9,7 @@ The converted images are saved in `/assets/cache/webp` folder. The plugin checks
 
 Usage
 -----
-There are two components: plugin that takes care of standard images and a snippet to handle images displayed via CSS.
+There are two components: plugin that takes care of standard images and a snippet to handle images displayed in some other way, e.g. via CSS as a background image.
 
 ### Plugin
 The plugin WebP Converter works out of the box. Just install it and you are good to go.
@@ -25,13 +25,13 @@ Images can be excluded from converting to WebP simply by adding `data-webpconver
 will not be handled by the plugin.
 
 ### Snippet
-The snippet webpBackground is to be used if you set background image via `style="background-image: url(...)"`, or in other similar situations.
+The snippet webpBackground is to be used in cases not handled by the plugin, for example if you set background image via `style="background-image: url(...)"`.
 
 Simply use:
 ```
 [!webpBackground? &src='/path/to/image' !]
 ```
-Note that the plugin has to be uncached, i.e., you have to use `[! ... !]` and NOT `[[ ... ]]`.
+Note that the plugin has to be uncached, i.e., you have to use `[! ... !]` and **not** `[[ ... ]]`.
 
 Image paths and cache folder
 ----------------------------
