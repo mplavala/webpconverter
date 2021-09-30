@@ -40,10 +40,12 @@ The plugin uses `/assets/cache/webp` to store WebP versions of images. The plugi
 To display the WebP image to a user, the plugin must changes the path inside the HTML sent to the user. To work correctly in all circumstances, the plugin adds a starting `/` to paths. This means that `assets/images/example.jpg` is changed to `/assets/cache/webp/images/example.jpg.webp`.
 
 ### Friendly URL alias path with relative image path
-If you have _Use Friendly URL alias path_ set to _yes_, i.e., if your URL is structured like `/parent/child.html`, and you use image paths NOT begining with `/`, then:
+If you have _Use Friendly URL alias path_ set to _yes_, i.e., if your URL is structured like `/parent/child.html`, and you use image paths NOT beginning with `/`, then:
 *   Please consider using image paths starting with `/`. Using image paths without the starting `/` in this scenario is a bad idea.
 *   The plugin will use `$_SERVER['REQUEST_URI']` to get the full path and work with that.
 *   This can lead to collisions, i.e., to WebP images overwriting each other as images located at `/assets/parent/image.jpg` and `/parent/image.jpg` would have the same path for the WebP image.
+
+The plugin and snippet do **not** support the `<base>` tag.
 
 ## Debugging
 
