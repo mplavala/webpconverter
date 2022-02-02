@@ -105,8 +105,6 @@ function convert($srcIn, $modx, $debug) {
     // change relative path to absolute path, starting with /
     $src = get_absolute_path($src, $_SERVER['REQUEST_URI']);
 
-    $srcMime = '';
-
     // file path on server, including file name
     $srcServerFile = MODX_BASE_PATH . ltrim($src, '/');
 
@@ -150,16 +148,23 @@ function convert($srcIn, $modx, $debug) {
 
     if (!file_exists($webpServerFile) or (filectime($webpServerFile) < filectime($srcServerFile))) {
         // image does not exist or is outdated
-        if ($srcMime == 'image/jpeg') {
-            $image =  imagecreatefromjpeg($srcServerFile);
-            imagepalettetotruecolor($image);
+        switch ($srcMime) {
+            case 'image/jpeg':
+                $image =  imagecreatefromjpeg($srcServerFile);
+                imagepalettetotruecolor($image);
+                break;
+            case 'image/png':
+                $image =  imagecreatefrompng($srcServerFile);
+                imagepalettetotruecolor($image);
+                imagealphablending($image, true);
+                imagesavealpha($image, true);
+                break;
+            default:
+                // despite our best efforst, we somehow get unsupported MIME type
+                // returning original input
+                return $srcIn;
         }
-        if ($srcMime == 'image/png') {
-            $image =  imagecreatefrompng($srcServerFile);
-            imagepalettetotruecolor($image);
-            imagealphablending($image, true);
-            imagesavealpha($image, true);
-        }
+
         if (!file_exists($webpServerPath)) {
             // folder does not exist
             mkdir($webpServerPath, 0777, true);
