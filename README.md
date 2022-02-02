@@ -1,7 +1,7 @@
 WebP Converter
 ==============
 
-[![CMS Evolution](https://img.shields.io/badge/CMS-Evolution-brightgreen.svg)](https://github.com/evolution-cms/evolution)[![Code Quality](https://img.shields.io/scrutinizer/quality/g/mplavala/webpconverter.svg?maxAge=2592000&b=develop)](https://scrutinizer-ci.com/g/mplavala/webpconverter/?branch=master)
+[![CMS Evolution](https://img.shields.io/badge/CMS-Evolution-brightgreen.svg)](https://github.com/evolution-cms/evolution) [![Code Quality](https://img.shields.io/scrutinizer/quality/g/mplavala/webpconverter.svg?maxAge=2592000&b=develop)](https://scrutinizer-ci.com/g/mplavala/webpconverter/?branch=master)
 
 Evolution CMS plugin and snippet to convert all images on the page to WebP format.
 
