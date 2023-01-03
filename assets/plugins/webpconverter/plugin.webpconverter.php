@@ -9,7 +9,7 @@ if (!defined('MODX_BASE_PATH')) {
 // supported MIME types
 define('MIME', ['image/jpeg', 'image/png']);
 // root for webp cahce
-define('CACHEPATH', 'assets/cache/webp');
+define('CACHEPATH', 'assets/cache/images/webp');
 
 
 function basic_checks($modx) {
@@ -29,11 +29,7 @@ function check_cache_folder() {
     $path = MODX_BASE_PATH . CACHEPATH;
     if (!file_exists($path)) {
         // folder does not exist
-        mkdir($path, 0777, true);
-    }
-    if (!file_exists($path . '/.htaccess')) {
-        // there is no .htaccess
-        file_put_contents($path . '/.htaccess', "order deny,allow\nallow from all\n");
+        mkdir($path, 0775, true);
     }
 }
 
