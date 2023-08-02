@@ -8,11 +8,12 @@
  * @version 	1.0
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU Public License (GPL)
  * @author      mplavala
+ * @reportissues https://github.com/mplavala/webpconverter/issues/
+ * @documentation Github repository https://github.com/mplavala/webpconverter
  * @internal	@properties &debug=Log debugging messages;list;No,Yes;No
  * @internal	@modx_category Content
  */
 
-<?php
 require_once(MODX_BASE_PATH . 'assets/plugins/webpconverter/plugin.webpconverter.php');
 
 $src = (isset($src)) ? $src : '';
