@@ -18,8 +18,8 @@ require_once(MODX_BASE_PATH . 'assets/plugins/webpconverter/plugin.webpconverter
 
 $src = (isset($src)) ? $src : '';
 
-if((strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false) and webpconverter\basic_checks($modx)) {
-	// webp is supported!
+if ((strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false or strpos( $_SERVER['HTTP_USER_AGENT'], 'Firefox' ) !== false) and webpconverter\basic_checks($modx)) {
+	// webp is supported or the browser is Firefox which does not send image/webp in HTTP_ACCEPT header!
 	// and we have all the needed functions
 	echo webpconverter\convert($src, $modx, $debug);
 } else {
